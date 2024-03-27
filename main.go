@@ -84,3 +84,26 @@ func getWeatherByCityHandler(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Error loading api config data", err)
 
 }
+// This api handler accepts a JSON body with a city name and returns the current weather in JSON format
+func weatherHandler(w http.ResponseWriter, r *http.Request) {
+
+    apiKey,err := loadApiConfig(".apiConfig")
+    if(err != nil){
+        fmt.Println("Error loading api config data", err)
+    }
+
+    var weatherReq WeatherRequest
+    if err := json.NewDecoder(r.Body).Decode(&weatherReq); err != nil {
+        fmt.Printf("Error decoding JSON: %v\n", err)
+        return
+    }
+
+	// Get the city from the query parameters
+	cityName := weatherReq.Name
+	units := "metric" // For temperature unit in Celcius
+
+	// Constructing the URL for the API request
+	url := fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s&units=%s&appid=%s", cityName, units, apiKey.OpenWeatherMapApiKey)
+
+	response, err := http.Get(url)
+}
