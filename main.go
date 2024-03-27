@@ -66,7 +66,6 @@ func loadApiConfig(filename string) (*apiConfigData, error) {
 }
 
 func getWeatherByCityHandler(w http.ResponseWriter, r *http.Request) {
-
 	apiKey, err := loadApiConfig(".apiConfig")
 	if err != nil {
 		fmt.Println("Error loading api config data", err)
@@ -79,5 +78,9 @@ func getWeatherByCityHandler(w http.ResponseWriter, r *http.Request) {
 	url := fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s&units=%s&appid=%s", cityName, units, apiKey.OpenWeatherMapApiKey)
 
 	response, err := http.Get(url)
+	func weatherHandler(w http.ResponseWriter, r *http.Request) {
+		apiKey,err := loadApiConfig(".apiConfig")
+		if(err != nil){
+			fmt.Println("Error loading api config data", err)
 
 }
