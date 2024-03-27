@@ -66,10 +66,11 @@ func loadApiConfig(filename string) (*apiConfigData, error) {
 }
 
 func getWeatherByCityHandler(w http.ResponseWriter, r *http.Request) {
-	apiKey, err := loadApiConfig(".apiConfig")
-	if err != nil {
-		fmt.Println("Error loading api config data", err)
-	}
+
+    apiKey,err := loadApiConfig(".apiConfig")
+    if(err != nil){
+        fmt.Println("Error loading api config data", err)
+    }
 	// Get the city from the query parameters
 	cityName := r.URL.Query().Get("name")
 	units := "metric" // For temperature unit in Celcius
@@ -78,10 +79,20 @@ func getWeatherByCityHandler(w http.ResponseWriter, r *http.Request) {
 	url := fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s&units=%s&appid=%s", cityName, units, apiKey.OpenWeatherMapApiKey)
 
 	response, err := http.Get(url)
-	func weatherHandler(w http.ResponseWriter, r *http.Request) {
-		apiKey,err := loadApiConfig(".apiConfig")
-		if(err != nil){
-			fmt.Println("Error loading api config data", err)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error fetching data: %v", err), http.StatusInternalServerError)
+		return
+	}
+	defer response.Body.Close()
+     var weatherResp WeatherResponse
+    if err := json.NewDecoder(response.Body).Decode(&weatherResp); err != nil {
+        fmt.Printf("Error decoding JSON: %v\n", err)
+        return
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(weatherResp)
+}
 
 }
 // This api handler accepts a JSON body with a city name and returns the current weather in JSON format
