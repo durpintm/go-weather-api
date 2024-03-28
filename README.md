@@ -4,8 +4,11 @@
 
 ```bash
 docker build -t go-weather-api .
+
 docker run -p 8000:8000 -t go-weather-api
+
 docker tag go-weather-api:latest durpintm/go-weather-api-hub:latest
+
 docker push durpintm/go-weather-api-hub:latest
 
 docker run -p 8000:8000 durpintm/go-weather-api-hub:latest
@@ -16,7 +19,8 @@ docker run -p 8000:8000 durpintm/go-weather-api-hub:latest
 ```bash
 ### City Weather using GET request
 curl -X GET http://localhost:8000/weather/city?name=toronto
-### Post an item to the list
+
+### City Weather using GET request
 curl -X POST http://localhost:8000/weather/city -H "Content-Type: application/json" -d "{\"name\":\"Sydney\"}"
 ```
 
