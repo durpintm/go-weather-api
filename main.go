@@ -42,7 +42,6 @@ func main() {
 
 	router.HandleFunc("/weather/city", getWeatherByCityHandler).Methods("GET")
 	router.HandleFunc("/weather/city", weatherHandler).Methods("POST")
-
 	fmt.Printf("Server is starting on port: %v\n", Dport)
 
 	http.ListenAndServe(Dport, router)
