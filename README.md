@@ -20,7 +20,7 @@ docker run -p 8000:8000 durpintm/go-weather-api-hub:latest
 ### City Weather using GET request
 curl -X GET http://localhost:8000/weather/city?name=toronto
 
-### City Weather using GET request
+### City Weather using POST request
 curl -X POST http://localhost:8000/weather/city -H "Content-Type: application/json" -d "{\"name\":\"Sydney\"}"
 ```
 
