@@ -20,6 +20,8 @@ curl -X GET http://localhost:8000/weather/city?name=toronto
 curl -X POST http://localhost:8000/weather/city -H "Content-Type: application/json" -d "{\"name\":\"Sydney\"}"
 ```
 
+## Docker Hub Link: https://hub.docker.com/repository/docker/durpintm/go-weather-api-hub/general
+
 ## Overview:
 
 - The Key objective of this project is to create an API server with the help of Go programming language to acknowledge GET and POST requests with details about the current weather in a particular city. The main outcome of this assignment is to create an API server in Go, holding API integrations, containerizing the applications to be run using docker, and significantly managing code using version control.
